@@ -1,0 +1,18 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.overlayer':
+      'Run all specs': 'rspec:run'
+      'Run current line spec': 'rspec:runForLine'
+
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'RSpec'
+      'submenu': [
+        { 'label': 'Run all specs', 'command': 'rspec:run' }
+        { 'label': 'Run current spec', 'command': 'rspec:runForLine' }
+      ]
+    ]
+  }
+]

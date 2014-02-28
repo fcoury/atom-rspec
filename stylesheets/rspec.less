@@ -1,0 +1,39 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/stylesheets/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+.rspec-spinner {
+  margin: auto;
+  background-image: url(images/octocat-spinner-128.gif);
+  background-repeat: no-repeat;
+  background-size: 64px;
+  background-position: top center;
+  padding-top: 70px;
+  text-align: center;
+}
+
+.rspec-output {
+  background-color: black;
+  color: white;
+  overflow: scroll;
+}
+
+.rspec-output {
+  pre,
+  pre div.editor,
+  code,
+  tt {
+    font-size: 12px;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+  }
+
+  .rspec-terminal {
+    background: #000;
+    color: #fff;
+  }
+
+  .stderr { color: red; }
+  .stdout { color: white; }
+}
