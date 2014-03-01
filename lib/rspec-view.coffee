@@ -1,30 +1,30 @@
-{$, $$$, EditorView, ScrollView, View} = require 'atom'
+{$, $$$, EditorView, ScrollView} = require 'atom'
 ChildProcess = require 'child_process'
 path = require 'path'
 
 module.exports =
-class RSpecOutputView extends ScrollView
+class RSpecView extends ScrollView
   atom.deserializers.add(this)
 
   @deserialize: ({filePath}) ->
-    new RSpecOutputView(filePath)
+    new RSpecView(filePath)
 
   @content: ->
-    @div class: 'rspec-output', tabindex: -1, =>
+    @div class: 'rspec', tabindex: -1, =>
       @div class: 'rspec-spinner', 'Starting RSpec...'
-      @pre class: 'rspec-terminal'
+      @pre class: 'rspec-output'
 
   constructor: (filePath) ->
     super
     console.log "File path:", filePath
     @filePath = filePath
+
     @output = @find(".rspec-output")
-    @terminal = @find(".rspec-terminal")
     @spinner = @find(".rspec-spinner")
-    @terminal.on("click", @terminalClicked)
+    @output.on("click", @terminalClicked)
 
   serialize: ->
-    deserializer: 'RSpecOutputView'
+    deserializer: 'RSpecView'
     filePath: @getPath()
 
   destroy: ->
@@ -56,7 +56,7 @@ class RSpecOutputView extends ScrollView
 
   run: (line_number) ->
     @spinner.show()
-    @terminal.empty()
+    @output.empty()
     project_path = atom.project.getRootDirectory().getPath()
 
     spawn = ChildProcess.spawn
@@ -85,7 +85,7 @@ class RSpecOutputView extends ScrollView
       "<a href='#{file}' data-line='#{line}'>#{match}</a>"
 
     @spinner.hide()
-    @terminal.append("#{output}")
+    @output.append("#{output}")
     @scrollTop(@[0].scrollHeight)
 
   onStdOut: (data) =>
