@@ -21,6 +21,7 @@ class RSpecOutputView extends ScrollView
     @output = @find(".rspec-output")
     @terminal = @find(".rspec-terminal")
     @spinner = @find(".rspec-spinner")
+    @terminal.on("click", @terminalClicked)
 
   serialize: ->
     deserializer: 'RSpecOutputView'
@@ -45,6 +46,14 @@ class RSpecOutputView extends ScrollView
       @h2 'Running RSpec Failed'
       @h3 failureMessage if failureMessage?
 
+  terminalClicked: (e) =>
+    if e.target?.href
+      line = $(e.target).data('line')
+
+      promise = atom.workspace.open(@filePath, { searchAllPanes: true, initialLine: line })
+      promise.done (editor) ->
+        editor.setCursorBufferPosition([line-1, 0])
+
   run: (line_number) ->
     @spinner.show()
     @terminal.empty()
@@ -68,6 +77,13 @@ class RSpecOutputView extends ScrollView
     terminal.stdin.write("exit\n")
 
   addOutput: (output) =>
+
+    output = "#{output}"
+    output = output.replace /([^\s]*:[0-9]+)/g, (match) ->
+      file = match.split(":")[0]
+      line = match.split(":")[1]
+      "<a href='#{file}' data-line='#{line}'>#{match}</a>"
+
     @spinner.hide()
     @terminal.append("#{output}")
     @scrollTop(@[0].scrollHeight)
