@@ -1,5 +1,6 @@
 {$, $$$, EditorView, ScrollView, View} = require 'atom'
 ChildProcess = require 'child_process'
+path = require 'path'
 
 module.exports =
 class RSpecOutputView extends ScrollView
@@ -26,13 +27,13 @@ class RSpecOutputView extends ScrollView
     @unsubscribe()
 
   getTitle: ->
-    "RSpec Output - #{@getPath()}"
+    "RSpec - #{path.basename(@getPath())}"
 
   getUri: ->
     "rspec-output://#{@getPath()}"
 
   getPath: ->
-    atom.project.getPath()
+    @filePath
 
   showError: (result) ->
     failureMessage = "The error message"
