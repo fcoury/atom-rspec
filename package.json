@@ -1,15 +1,17 @@
 {
   "name": "rspec",
   "main": "./lib/rspec",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Atom RSpec runner package",
-  "activationEvents": ["rspec:run", "rspec:runForFile"],
+  "activationEvents": [
+    "rspec:run",
+    "rspec:runForFile"
+  ],
   "repository": "https://github.com/fcoury/atom-rspec",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
