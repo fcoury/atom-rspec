@@ -11,16 +11,19 @@ class RSpecOutputView extends ScrollView
 
   @content: ->
     @div class: 'rspec-output', tabindex: -1, =>
-      @div class: 'rspec-spinner', 'Starting RSpec, please wait...'
+      @div class: 'rspec-spinner', 'Starting RSpec...'
       @pre class: 'rspec-terminal'
 
   constructor: (filePath) ->
     super
     console.log "File path:", filePath
     @filePath = filePath
+    @output = @find(".rspec-output")
+    @terminal = @find(".rspec-terminal")
+    @spinner = @find(".rspec-spinner")
 
   serialize: ->
-    deserializer: 'MarkdownPreviewView'
+    deserializer: 'RSpecOutputView'
     filePath: @getPath()
 
   destroy: ->
@@ -43,6 +46,8 @@ class RSpecOutputView extends ScrollView
       @h3 failureMessage if failureMessage?
 
   run: (line_number) ->
+    @spinner.show()
+    @terminal.empty()
     project_path = atom.project.getRootDirectory().getPath()
 
     spawn = ChildProcess.spawn
@@ -54,7 +59,7 @@ class RSpecOutputView extends ScrollView
 
     terminal = spawn("bash", ["-l"])
 
-    terminal.on 'close', (code) -> console.log " *** I AM DONE #{code} ***"
+    terminal.on 'close', @onClose
 
     terminal.stdout.on 'data', @onStdOut
     terminal.stderr.on 'data', @onStdErr
@@ -62,12 +67,10 @@ class RSpecOutputView extends ScrollView
     terminal.stdin.write("cd #{project_path} && #{command}\n")
     terminal.stdin.write("exit\n")
 
-    console.log "RSpecView was run!"
-
   addOutput: (output) =>
-    $(".rspec-spinner").hide()
-    $(".rspec-terminal").append("#{output}")
-    $('.rspec-output').scrollTop($('.rspec-output')[0].scrollHeight);
+    @spinner.hide()
+    @terminal.append("#{output}")
+    @scrollTop(@[0].scrollHeight)
 
   onStdOut: (data) =>
     @addOutput data
@@ -77,5 +80,3 @@ class RSpecOutputView extends ScrollView
 
   onClose: (code) =>
     console.log "[RSpec] exit with code: #{code}"
-    $(".rspec-output").append("<h3>This is done!</h3>")
-    $(".rspec-spinner").hide()
