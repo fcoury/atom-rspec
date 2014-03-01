@@ -30,7 +30,7 @@ module.exports =
   openUriFor: (file, line_number) ->
     previousActivePane = atom.workspace.getActivePane()
     uri = "rspec-output://#{file}"
-    atom.workspace.open(uri, split: 'right', changeFocus: false).done (rspecOutputView) ->
+    atom.workspace.open(uri, split: 'right', changeFocus: false, searchAllPanes: true).done (rspecOutputView) ->
       if rspecOutputView instanceof RSpecOutputView
         rspecOutputView.run(line_number)
         previousActivePane.activate()
