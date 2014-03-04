@@ -63,19 +63,17 @@ class RSpecView extends ScrollView
 
     specCommand = atom.config.get("atom-rspec.command")
     command = "#{specCommand} #{@filePath}"
-    command = "#{command} -l #{line_number}" if line_number
+    command = "#{command} -l #{line_number + 1}" if line_number
 
     console.log "[RSpec] running: #{command}"
 
-    terminal = spawn("bash", ["-l"])
+    terminal = spawn("bash", ["-c", "cd #{project_path} && #{command}\n"])
 
     terminal.on 'close', @onClose
 
     terminal.stdout.on 'data', @onStdOut
     terminal.stderr.on 'data', @onStdErr
 
-    terminal.stdin.write("cd #{project_path} && #{command}\n")
-    terminal.stdin.write("exit\n")
 
   addOutput: (output) =>
 
