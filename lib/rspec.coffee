@@ -33,15 +33,15 @@ module.exports =
     lastFile: @lastFile
     lastLine: @lastLine
 
-  openUriFor: (file, line_number) ->
+  openUriFor: (file, lineNumber) ->
     @lastFile = file
-    @lastLine = line_number
+    @lastLine = lineNumber
 
     previousActivePane = atom.workspace.getActivePane()
     uri = "rspec-output://#{file}"
     atom.workspace.open(uri, split: 'right', changeFocus: false, searchAllPanes: true).done (rspecView) ->
       if rspecView instanceof RSpecView
-        rspecView.run(line_number)
+        rspecView.run(lineNumber)
         previousActivePane.activate()
 
   runForLine: ->
