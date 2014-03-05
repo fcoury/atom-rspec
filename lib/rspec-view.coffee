@@ -57,7 +57,7 @@ class RSpecView extends ScrollView
       promise.done (editor) ->
         editor.setCursorBufferPosition([line-1, 0])
 
-  run: (line_number) ->
+  run: (lineNumber) ->
     @spinner.show()
     @output.empty()
     project_path = atom.project.getRootDirectory().getPath()
@@ -66,7 +66,7 @@ class RSpecView extends ScrollView
 
     specCommand = atom.config.get("rspec.command")
     command = "#{specCommand} #{@filePath}"
-    command = "#{command} -l #{line_number}" if line_number
+    command = "#{command} -l #{lineNumber}" if lineNumber
 
     console.log "[RSpec] running: #{command}"
 
