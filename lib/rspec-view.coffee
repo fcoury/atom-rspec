@@ -49,8 +49,11 @@ class RSpecView extends ScrollView
   terminalClicked: (e) =>
     if e.target?.href
       line = $(e.target).data('line')
+      file = $(e.target).data('file')
+      console.log(file)
+      file = "#{atom.project.getPath()}/#{file}"
 
-      promise = atom.workspace.open(@filePath, { searchAllPanes: true, initialLine: line })
+      promise = atom.workspace.open(file, { searchAllPanes: true, initialLine: line })
       promise.done (editor) ->
         editor.setCursorBufferPosition([line-1, 0])
 
@@ -61,20 +64,19 @@ class RSpecView extends ScrollView
 
     spawn = ChildProcess.spawn
 
-    command = "rspec #{@filePath}"
-    command = "#{command} -l #{line_number}" if line_number
+    specCommand = atom.config.get("atom-rspec.command")
+    command = "#{specCommand} #{@filePath}"
+    command = "#{command} -l #{line_number + 1}" if line_number
 
     console.log "[RSpec] running: #{command}"
 
-    terminal = spawn("bash", ["-l"])
+    terminal = spawn("bash", ["-c", "cd #{project_path} && #{command}\n"])
 
     terminal.on 'close', @onClose
 
     terminal.stdout.on 'data', @onStdOut
     terminal.stderr.on 'data', @onStdErr
 
-    terminal.stdin.write("cd #{project_path} && #{command}\n")
-    terminal.stdin.write("exit\n")
 
   addOutput: (output) =>
 
@@ -82,7 +84,7 @@ class RSpecView extends ScrollView
     output = output.replace /([^\s]*:[0-9]+)/g, (match) ->
       file = match.split(":")[0]
       line = match.split(":")[1]
-      "<a href='#{file}' data-line='#{line}'>#{match}</a>"
+      "<a href='#{file}' data-line='#{line}' data-file='#{file}'>#{match}</a>"
 
     @spinner.hide()
     @output.append("#{output}")
