@@ -64,7 +64,7 @@ class RSpecView extends ScrollView
 
     spawn = ChildProcess.spawn
 
-    specCommand = atom.config.get("atom-rspec.command")
+    specCommand = atom.config.get("rspec.command")
     command = "#{specCommand} #{@filePath}"
     command = "#{command} -l #{line_number}" if line_number
 

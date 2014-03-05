@@ -3,6 +3,9 @@ url = require 'url'
 RSpecView = require './rspec-view'
 
 module.exports =
+  configDefaults:
+    command: "rspec"
+
   activate: (state) ->
     if state?
       @lastFile = state.lastFile
