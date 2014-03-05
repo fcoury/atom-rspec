@@ -16,3 +16,13 @@ HotKeys:
 - __Ctrl+Alt+E__ - re-executes the last executed spec
 
 ![Screenshot](http://cl.ly/image/2G2B3M2g3l3k/stats_collector_spec.rb%20-%20-Users-fcoury-Projects-crm_bliss.png)
+
+## Configuration
+
+1. In the "Atom" menu, select "Open your config"
+2. Add the following lines, and adjust to suit your needs:
+
+```
+'rspec':
+  'command': 'rspec'
+```
