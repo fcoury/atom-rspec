@@ -57,16 +57,16 @@ class RSpecView extends ScrollView
       promise.done (editor) ->
         editor.setCursorBufferPosition([line-1, 0])
 
-  run: (line_number) ->
+  run: (lineNumber) ->
     @spinner.show()
     @output.empty()
-    project_path = atom.project.getRootDirectory().getPath()
+    projectPath = atom.project.getRootDirectory().getPath()
 
     spawn = ChildProcess.spawn
 
     specCommand = atom.config.get("rspec.command")
     command = "#{specCommand} #{@filePath}"
-    command = "#{command}:#{line_number}" if line_number
+    command = "#{command}:#{lineNumber}" if lineNumber
 
     console.log "[RSpec] running: #{command}"
 
@@ -77,16 +77,16 @@ class RSpecView extends ScrollView
     terminal.stdout.on 'data', @onStdOut
     terminal.stderr.on 'data', @onStdErr
 
-    terminal.stdin.write("cd #{project_path} && #{command}\n")
+    terminal.stdin.write("cd #{projectPath} && #{command}\n")
     terminal.stdin.write("exit\n")
 
   addOutput: (output) =>
 
     output = "#{output}"
-    output = output.replace /([^\s]*:[0-9]+)/g, (match) ->
+    output = output.replace /([^\s]*:[0-9]+)/g, (match) =>
       file = match.split(":")[0]
       line = match.split(":")[1]
-      "<a href='#{file}' data-line='#{line}' data-file='#{file}'>#{match}</a>"
+      $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
 
     @spinner.hide()
     @output.append("#{output}")
