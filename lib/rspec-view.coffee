@@ -81,15 +81,22 @@ class RSpecView extends ScrollView
     terminal.stdin.write("exit\n")
 
   addOutput: (output) =>
-
-    output = "#{output}"
-    output = output.replace /([^\s]*:[0-9]+)/g, (match) =>
-      file = match.split(":")[0]
-      line = match.split(":")[1]
-      $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
-
     @spinner.hide()
-    @output.append("#{output}")
+    escapedOutput = ''
+    lines = "#{output}".split(/\r\n|\r|\n/)
+    for line in lines
+      div = document.createElement('div')
+      line = line.trim()
+      div.innerText = line
+      escapedLine = div.innerHTML
+
+      lineWithLinks = escapedLine.replace /([^\s]*:[0-9]+)/g, (match) =>
+        file = match.split(":")[0]
+        line = match.split(":")[1]
+        $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
+
+      @output.append(lineWithLinks + '<br>')
+
     @scrollTop(@[0].scrollHeight)
 
   onStdOut: (data) =>
