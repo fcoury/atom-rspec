@@ -20,9 +20,9 @@ HotKeys:
 ## Configuration
 
 1. In the "Atom" menu, select "Open your config"
-2. Add the following lines, and adjust to suite your needs:
+2. Add the following lines, and adjust to suit your needs:
 
 ```
 'rspec':
-  'command': 'bin/rspec'
+  'command': 'rspec'
 ```
