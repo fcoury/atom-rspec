@@ -60,7 +60,7 @@ class RSpecView extends ScrollView
   run: (lineNumber) ->
     @spinner.show()
     @output.empty()
-    project_path = atom.project.getRootDirectory().getPath()
+    projectPath = atom.project.getRootDirectory().getPath()
 
     spawn = ChildProcess.spawn
 
@@ -77,7 +77,7 @@ class RSpecView extends ScrollView
     terminal.stdout.on 'data', @onStdOut
     terminal.stderr.on 'data', @onStdErr
 
-    terminal.stdin.write("cd #{project_path} && #{command}\n")
+    terminal.stdin.write("cd #{projectPath} && #{command}\n")
     terminal.stdin.write("exit\n")
 
   addOutput: (output) =>
