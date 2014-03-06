@@ -66,7 +66,7 @@ class RSpecView extends ScrollView
 
     specCommand = atom.config.get("rspec.command")
     command = "#{specCommand} #{@filePath}"
-    command = "#{command} -l #{lineNumber}" if lineNumber
+    command = "#{command}:#{lineNumber}" if lineNumber
 
     console.log "[RSpec] running: #{command}"
 
