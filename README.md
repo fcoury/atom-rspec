@@ -17,10 +17,10 @@ By default this package will run `rspec` as the command.
 You can set the default command by either accessing the Settings page (Cmd+,)
 and changing the command option like below:
 
-![Configuration Screenshot](http://f.cl.ly/items/2k1C0E0e1l2Z3m1l3e1R/Settings%20-%20-Users-fcoury-Projects-crm_bliss.jpg)
+![Configuration Screenshot](http://f.cl.ly/items/1h0N2N1V0E1M3d060w3N/atom-rspec-settings.png)
 
 Or by opening your configuration file (clicking __Atom__ > __Open Your Config__)
 and adding or changing the following snippet:
 
-    'rspec':
+    'atom-rspec':
       'command': 'bundle exec rspec'
