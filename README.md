@@ -1,12 +1,5 @@
 # Atom RSpec Runner Package
 
-----
-
-**Warning: This package is alpha and probably buggy,** but I decided to share
-my progress for those who are interested. Proceed at your own risk!
-
------
-
 Add ability to run RSpec and see the output without leaving Atom.
 
 HotKeys:
@@ -16,3 +9,18 @@ HotKeys:
 - __Ctrl+Alt+E__ - re-executes the last executed spec
 
 ![Screenshot](http://cl.ly/image/2G2B3M2g3l3k/stats_collector_spec.rb%20-%20-Users-fcoury-Projects-crm_bliss.png)
+
+## Configuration
+
+By default this package will run `rspec` as the command.
+
+You can set the default command by either accessing the Settings page (Cmd+,)
+and changing the command option like below:
+
+![Configuration Screenshot](http://f.cl.ly/items/2k1C0E0e1l2Z3m1l3e1R/Settings%20-%20-Users-fcoury-Projects-crm_bliss.jpg)
+
+Or by opening your configuration file (clicking __Atom__ > __Open Your Config__)
+and adding or changing the following snippet:
+
+    'rspec':
+      'command': 'bundle exec rspec'
