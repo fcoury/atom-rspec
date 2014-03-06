@@ -5,9 +5,9 @@
   "private": true,
   "description": "Atom RSpec runner package",
   "activationEvents": [
-    "rspec:run",
-    "rspec:run-for-line",
-    "rspec:run-last"
+    "atom-rspec:run",
+    "atom-rspec:run-for-line",
+    "atom-rspec:run-last"
   ],
   "repository": "https://github.com/fcoury/atom-rspec",
   "license": "MIT",

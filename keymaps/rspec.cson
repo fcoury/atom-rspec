@@ -8,6 +8,6 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 '.editor':
-  'ctrl+alt+t': 'rspec:run'
-  'ctrl+alt+x': 'rspec:run-for-line'
-  'ctrl+alt+e': 'rspec:run-last'
+  'ctrl+alt+t': 'atom-rspec:run'
+  'ctrl+alt+x': 'atom-rspec:run-for-line'
+  'ctrl+alt+e': 'atom-rspec:run-last'

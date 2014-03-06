@@ -1,9 +1,9 @@
 # See https://atom.io/docs/latest/creating-a-package#menus for more details
 'context-menu':
   '.overlayer':
-      'Run All Specs': 'rspec:run'
-      'Run Current Spec': 'rspec:run-for-line'
-      'Re-Run Last Spec': 'rspec:run-last'
+      'Run All Specs': 'atom-rspec:run'
+      'Run Current Spec': 'atom-rspec:run-for-line'
+      'Re-Run Last Spec': 'atom-rspec:run-last'
 
 'menu': [
   {
@@ -11,9 +11,9 @@
     'submenu': [
       'label': 'RSpec'
       'submenu': [
-        { 'label': 'Run All Specs', 'command': 'rspec:run' }
-        { 'label': 'Run Current Spec', 'command': 'rspec:run-for-line' }
-        { 'label': 'Re-Run Last Spec', 'command': 'rspec:run-last' }
+        { 'label': 'Run All Specs', 'command': 'atom-rspec:run' }
+        { 'label': 'Run Current Spec', 'command': 'atom-rspec:run-for-line' }
+        { 'label': 'Re-Run Last Spec', 'command': 'atom-rspec:run-last' }
       ]
     ]
   }

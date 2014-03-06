@@ -14,9 +14,9 @@ module.exports =
     atom.config.setDefaults "atom-rspec",
       command: "rspec"
 
-    atom.workspaceView.command 'rspec:run'         , => @run()
-    atom.workspaceView.command 'rspec:run-for-line', => @runForLine()
-    atom.workspaceView.command 'rspec:run-last'    , => @runLast()
+    atom.workspaceView.command 'atom-rspec:run'         , => @run()
+    atom.workspaceView.command 'atom-rspec:run-for-line', => @runForLine()
+    atom.workspaceView.command 'atom-rspec:run-last'    , => @runLast()
 
     atom.workspace.registerOpener (uriToOpen) ->
       {protocol, pathname} = url.parse(uriToOpen)
