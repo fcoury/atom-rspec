@@ -52,7 +52,7 @@ module.exports =
 
     cursor = editor.getCursor()
     console.log "Cursor", cursor
-    line = cursor.getScreenRow()
+    line = cursor.getScreenRow() + 1
     console.log "Line", line
 
     @openUriFor(editor.getPath(), line)
