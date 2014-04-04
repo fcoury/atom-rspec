@@ -46,6 +46,7 @@ module.exports =
 
   runForLine: ->
     console.log "Starting runForLine..."
+    atom.workspace.saveAll()
     editor = atom.workspace.getActiveEditor()
     console.log "Editor", editor
     return unless editor?
@@ -59,10 +60,12 @@ module.exports =
 
   runLast: ->
     return unless @lastFile?
+    atom.workspace.saveAll()
     @openUriFor(@lastFile, @lastLine)
 
   run: ->
     console.log "RUN"
+    atom.workspace.saveAll()
     editor = atom.workspace.getActiveEditor()
     return unless editor?
 
