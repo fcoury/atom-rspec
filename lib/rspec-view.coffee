@@ -14,6 +14,10 @@ class RSpecView extends ScrollView
       @div class: 'rspec-spinner', 'Starting RSpec...'
       @pre class: 'rspec-output'
 
+  initialize: ->
+    super
+    @on 'core:copy': => @copySelectedText()
+
   constructor: (filePath) ->
     super
     console.log "File path:", filePath
@@ -26,6 +30,11 @@ class RSpecView extends ScrollView
   serialize: ->
     deserializer: 'RSpecView'
     filePath: @getPath()
+
+  copySelectedText: ->
+    text = window.getSelection().toString()
+    return if text == ''
+    atom.clipboard.write(text)
 
   destroy: ->
     @unsubscribe()
