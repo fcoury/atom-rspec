@@ -10,7 +10,7 @@ class RSpecView extends ScrollView
     new RSpecView(filePath)
 
   @content: ->
-    @div class: 'rspec', tabindex: -1, =>
+    @div class: 'rspec rspec-console', tabindex: -1, =>
       @div class: 'rspec-spinner', 'Starting RSpec...'
       @pre class: 'rspec-output'
 
