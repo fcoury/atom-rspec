@@ -4,7 +4,8 @@ RSpecView = require './rspec-view'
 
 module.exports =
   configDefaults:
-    command: "rspec"
+    command: "rspec",
+    spec_directory: "spec"
 
   activate: (state) ->
     if state?
@@ -17,6 +18,7 @@ module.exports =
     atom.workspaceView.command 'rspec:run'         , => @run()
     atom.workspaceView.command 'rspec:run-for-line', => @runForLine()
     atom.workspaceView.command 'rspec:run-last'    , => @runLast()
+    atom.workspaceView.command 'rspec:run-all'     , => @runAll()
 
     atom.workspace.registerOpener (uriToOpen) ->
       {protocol, pathname} = url.parse(uriToOpen)
@@ -67,3 +69,9 @@ module.exports =
     return unless editor?
 
     @openUriFor(editor.getPath())
+
+  runAll: ->
+    project = atom.project
+    return unless project?
+
+    @openUriFor(project.getPath() + "/" + atom.config.get("rspec.spec_directory"))
