@@ -82,12 +82,12 @@ class RSpecView extends ScrollView
 
   addOutput: (output) =>
 
-    output = "#{output}"
+    output = $('<div/>').text("#{output}").html();
     output = output.replace /([^\s]*:[0-9]+)/g, (match) =>
       file = match.split(":")[0]
       line = match.split(":")[1]
       $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
-    output = $('<div/>').text(output).html();
+
     @spinner.hide()
     @output.append("#{output}")
     @scrollTop(@[0].scrollHeight)
