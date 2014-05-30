@@ -87,7 +87,7 @@ class RSpecView extends ScrollView
       file = match.split(":")[0]
       line = match.split(":")[1]
       $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
-
+    output = $('<div/>').text(output).html();
     @spinner.hide()
     @output.append("#{output}")
     @scrollTop(@[0].scrollHeight)
