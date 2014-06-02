@@ -73,8 +73,10 @@ class RSpecView extends ScrollView
 
     spawn = ChildProcess.spawn
 
-    specCommand = atom.config.get("rspec.command")
-    command = "#{specCommand} #{@filePath}"
+    specCommand = atom.config.get("atom-rspec.command")
+    options = " --tty"
+    options += " --color" if atom.config.get("atom-rspec.force_colored_results")
+    command = "#{specCommand} #{options} #{@filePath}"
     command = "#{command}:#{lineNumber}" if lineNumber
 
     console.log "[RSpec] running: #{command}"
@@ -96,6 +98,10 @@ class RSpecView extends ScrollView
       file = match.split(":")[0]
       line = match.split(":")[1]
       $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
+
+    # If running rspec in --tty mode replace the color codes
+    output = output.replace /\[(3[0-7])m([^\[]*)\[0m/g, (match, colorCode, text) =>
+      $$$ -> @p class: "rspec-color tty-#{colorCode}", text
 
     @spinner.hide()
     @output.append("#{output}")

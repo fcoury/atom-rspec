@@ -5,7 +5,8 @@ RSpecView = require './rspec-view'
 module.exports =
   configDefaults:
     command: "rspec",
-    spec_directory: "spec"
+    spec_directory: "spec",
+    force_colored_results: true,
 
   activate: (state) ->
     if state?
@@ -13,7 +14,9 @@ module.exports =
       @lastLine = state.lastLine
 
     atom.config.setDefaults "atom-rspec",
-      command: "rspec"
+      command:               @configDefaults.command,
+      spec_directory:        @configDefaults.spec_directory,
+      force_colored_results: @configDefaults.force_colored_results
 
     atom.workspaceView.command 'rspec:run'         , => @run()
     atom.workspaceView.command 'rspec:run-for-line', => @runForLine()
@@ -74,4 +77,4 @@ module.exports =
     project = atom.project
     return unless project?
 
-    @openUriFor(project.getPath() + "/" + atom.config.get("rspec.spec_directory"))
+    @openUriFor(project.getPath() + "/" + atom.config.get("atom-rspec.spec_directory"))
