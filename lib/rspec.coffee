@@ -18,10 +18,10 @@ module.exports =
       spec_directory:        @configDefaults.spec_directory,
       force_colored_results: @configDefaults.force_colored_results
 
-    atom.workspaceView.command 'rspec:run'         , => @run()
-    atom.workspaceView.command 'rspec:run-for-line', => @runForLine()
-    atom.workspaceView.command 'rspec:run-last'    , => @runLast()
-    atom.workspaceView.command 'rspec:run-all'     , => @runAll()
+    atom.workspaceView.command 'atom-rspec:run'         , => @run()
+    atom.workspaceView.command 'atom-rspec:run-for-line', => @runForLine()
+    atom.workspaceView.command 'atom-rspec:run-last'    , => @runLast()
+    atom.workspaceView.command 'atom-rspec:run-all'     , => @runAll()
 
     atom.workspace.registerOpener (uriToOpen) ->
       {protocol, pathname} = url.parse(uriToOpen)
