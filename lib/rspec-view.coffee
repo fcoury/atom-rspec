@@ -93,7 +93,7 @@ class RSpecView extends ScrollView
 
   addOutput: (output) =>
 
-    output = "#{output}"
+    output = $('<div/>').text("#{output}").html();
     output = output.replace /([^\s]*:[0-9]+)/g, (match) =>
       file = match.split(":")[0]
       line = match.split(":")[1]
