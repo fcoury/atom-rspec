@@ -12,3 +12,7 @@
   'ctrl+alt+x': 'rspec:run-for-line'
   'ctrl+alt+e': 'rspec:run-last'
   'ctrl+alt+r': 'rspec:run-all'
+
+'.vim-mode.command-mode:not(.mini)':
+  ', t': 'rspec:run'
+  ', T': 'rspec:run-for-line'
