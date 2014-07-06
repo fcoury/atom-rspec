@@ -4,6 +4,7 @@ RSpecView = require './rspec-view'
 
 module.exports =
   configDefaults:
+    shell: 'bash'
     command: "rspec",
     spec_directory: "spec",
     force_colored_results: true,
@@ -14,6 +15,7 @@ module.exports =
       @lastLine = state.lastLine
 
     atom.config.setDefaults "rspec",
+      shell:                 @configDefaults.shell,
       command:               @configDefaults.command,
       spec_directory:        @configDefaults.spec_directory,
       force_colored_results: @configDefaults.force_colored_results

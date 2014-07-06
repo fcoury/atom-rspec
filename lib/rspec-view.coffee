@@ -81,7 +81,7 @@ class RSpecView extends ScrollView
 
     console.log "[RSpec] running: #{command}"
 
-    terminal = spawn("bash", ["-l"])
+    terminal = spawn(atom.config.get("rspec.shell"), ["-l"])
 
     terminal.on 'close', @onClose
 
