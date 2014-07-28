@@ -78,6 +78,7 @@ class RSpecView extends ScrollView
     options += " --color" if atom.config.get("atom-rspec.force_colored_results")
     command = "#{specCommand} #{options} #{@filePath}"
     command = "#{command}:#{lineNumber}" if lineNumber
+    command = "#{command} --tty"
 
     console.log "[RSpec] running: #{command}"
 
@@ -87,12 +88,25 @@ class RSpecView extends ScrollView
 
     terminal.stdout.on 'data', @onStdOut
     terminal.stderr.on 'data', @onStdErr
-
     terminal.stdin.write("cd #{projectPath} && #{command}\n")
-    terminal.stdin.write("exit\n")
+
+  color42: (output) =>
+    return /(\[3\dm)/.exec(output)
+
+  bash2html_colors: (color) =>
+    #http://pueblo.sourceforge.net/doc/manual/ansi_color_codes.html
+    {
+      '[30m': 'black',
+      '[31m': 'red',
+      '[32m': 'green',
+      '[33m': 'yellow',
+      '[34m': 'blue',
+      '[35m': 'magenta',
+      '[36m': 'cyan',
+      '[37m': 'white',
+    }[color]
 
   addOutput: (output) =>
-
     output = "#{output}"
 
     # If running rspec in --tty mode replace the color codes
@@ -105,7 +119,16 @@ class RSpecView extends ScrollView
       $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
 
     @spinner.hide()
-    @output.append("#{output}")
+    for o in "#{output}".split("\n")
+      do =>
+        raw_color = @color42("#{o}")
+        color     = @bash2html_colors(raw_color[0]) if !!raw_color
+        style     = "\"margin: 0; padding:0; color:#{color}\""
+        o         = o.replace /(\[3\dm)/, ''
+        o         = o.replace /(\[0m)/,   ''
+
+        @output.append("<p style=#{style}>#{o}</p>")
+
     @scrollTop(@[0].scrollHeight)
 
   onStdOut: (data) =>
