@@ -94,19 +94,50 @@ class RSpecView extends ScrollView
   addOutput: (output) =>
 
     output = "#{output}"
-
-    # If running rspec in --tty mode replace the color codes
-    output = output.replace /\[(3[0-7])m([^\[]*)\[0m/g, (match, colorCode, text) =>
-      $$$ -> @p class: "rspec-color tty-#{colorCode}", text
-
-    output = output.replace /([^\s]*:[0-9]+)/g, (match) =>
-      file = match.split(":")[0]
-      line = match.split(":")[1]
-      $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
+    output = @escapeHtml(output)
+    output = @colorize(output)
+    output = @addAtomLinksToOutput(output)
 
     @spinner.hide()
     @output.append("#{output}")
     @scrollTop(@[0].scrollHeight)
+
+  escapeHtml: (output)->
+    $('<div/>').text(output).html()
+
+  colorize: (output)->
+    # If running rspec in --tty mode replace the color codes
+    colorStart = output.search(/\[3[0-7]m/g)
+    colorEnd = output.search(/\[0m/g)
+
+    while colorStart >= 0 and colorEnd >= 0 and colorStart <= colorEnd
+      colorCode = output.substr(colorStart + 1, 2)
+
+      textStart = colorStart + 4
+      textLength = colorEnd - textStart
+
+      text = output.substr(textStart, textLength)
+      text = "<p class=\"rspec-color tty-#{colorCode}\">#{text}</p>"
+
+      outputBeforeColor = output.substr(0, colorStart)
+      outputAfterColor = output.substr(colorStart + 4 + textLength + 3)
+      output = "#{outputBeforeColor}#{text}#{outputAfterColor}"
+
+      colorStart = output.search(/\[3[0-7]m/)
+      colorEnd = output.search(/\[0m/)
+    output
+
+  addAtomLinksToOutput: (output)->
+    output.replace /([^\s]*:[0-9]+)(:|\ |$)/g, (match) =>
+      file = match.split(":")[0]
+      line = match.split(":")[1]
+
+      fileLineEnd = file.length + line.length
+      fileAndLine = "#{file}:#{line}"
+      matchWithoutFileAndLine = match.substr(fileLineEnd + 1)
+
+      "<a href=\"#{file}\" data-line=\"#{line}\" data-file=\"#{file}\">"+
+      "#{fileAndLine}</a>#{matchWithoutFileAndLine}"
 
   onStdOut: (data) =>
     @addOutput data
