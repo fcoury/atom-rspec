@@ -14,6 +14,24 @@ describe 'fileLinked', ->
       ':in `block (3 levels) in <top (required)>'
     )
 
+  it 'adds links when line number is at the end of line', ->
+    text = './foo/bar_spec.rb:123\n'
+    formatter = new TextFormatter(text)
+    expect(formatter.fileLinked().text).toBe '<a href="./foo/bar_spec.rb" ' +
+      'data-line="123" data-file="./foo/bar_spec.rb">./foo/bar_spec.rb:123</a>\n'
+
+  it 'adds links when file paths is wrapped with color marks', ->
+    text = '[31m./foo/bar_spec.rb:123[0m'
+    formatter = new TextFormatter(text)
+    expect(formatter.fileLinked().text).toBe '[31m<a href="./foo/bar_spec.rb" ' +
+      'data-line="123" data-file="./foo/bar_spec.rb">./foo/bar_spec.rb:123</a>[0m'
+
+  it 'adds links when file path is absolute', ->
+    text = '/foo/bar_spec.rb:123'
+    formatter = new TextFormatter(text)
+    expect(formatter.fileLinked().text).toBe '<a href="/foo/bar_spec.rb" ' +
+      'data-line="123" data-file="/foo/bar_spec.rb">/foo/bar_spec.rb:123</a>'
+
 describe 'colorized', ->
   it 'corretly sets colors to fail/pass marks', ->
     formatter = new TextFormatter("[31mF[0m[31mF[0m[31mF[0m[33m*[0m[33m*[0m[31mF[0m")

@@ -7,9 +7,9 @@ class TextFormatter
     new TextFormatter( $('<div/>').text(@text).html() )
 
   fileLinked: ->
-    text = @text.replace /([^\s]*:[0-9]+)(:|\ |$)/g, (match) =>
+    text = @text.replace /([\\\/.][^\s]*:[0-9]+)([^\d]|$)/g, (match) =>
       file = match.split(":")[0]
-      line = match.split(":")[1]
+      line = match.split(":")[1].replace(/[^\d]*$/, '')
 
       fileLineEnd = file.length + line.length
       fileAndLine = "#{file}:#{line}"
