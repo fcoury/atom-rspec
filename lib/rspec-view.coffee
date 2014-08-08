@@ -1,6 +1,7 @@
 {$, $$$, EditorView, ScrollView} = require 'atom'
 ChildProcess = require 'child_process'
 path = require 'path'
+TextFormatter = require './text-formatter'
 
 module.exports =
 class RSpecView extends ScrollView
@@ -92,17 +93,8 @@ class RSpecView extends ScrollView
     terminal.stdin.write("exit\n")
 
   addOutput: (output) =>
-
-    output = "#{output}"
-
-    # If running rspec in --tty mode replace the color codes
-    output = output.replace /\[(3[0-7])m([^\[]*)\[0m/g, (match, colorCode, text) =>
-      $$$ -> @p class: "rspec-color tty-#{colorCode}", text
-
-    output = output.replace /([^\s]*:[0-9]+)/g, (match) =>
-      file = match.split(":")[0]
-      line = match.split(":")[1]
-      $$$ -> @a href: file, 'data-line': line, 'data-file': file, match
+    formatter = new TextFormatter(output)
+    output = formatter.htmlEscaped().colorized().fileLinked().text
 
     @spinner.hide()
     @output.append("#{output}")

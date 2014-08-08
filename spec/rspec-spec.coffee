@@ -12,7 +12,7 @@ describe "Rspec", ->
     atom.workspaceView = new WorkspaceView
     activationPromise = atom.packages.activatePackage('rspec')
 
-  describe "when the rspec:toggle event is triggered", ->
+  xdescribe "when the rspec:toggle event is triggered", ->
     it "attaches and then detaches the view", ->
       expect(atom.workspaceView.find('.rspec')).not.toExist()
 
