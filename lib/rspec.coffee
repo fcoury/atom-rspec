@@ -4,6 +4,7 @@ RSpecView = require './rspec-view'
 
 module.exports =
   configDefaults:
+    shell: 'bash'
     command: "rspec",
     spec_directory: "spec",
     force_colored_results: true,
@@ -13,7 +14,8 @@ module.exports =
       @lastFile = state.lastFile
       @lastLine = state.lastLine
 
-    atom.config.setDefaults "atom-rspec",
+    atom.config.setDefaults "rspec",
+      shell:                 @configDefaults.shell,
       command:               @configDefaults.command,
       spec_directory:        @configDefaults.spec_directory,
       force_colored_results: @configDefaults.force_colored_results
@@ -77,4 +79,4 @@ module.exports =
     project = atom.project
     return unless project?
 
-    @openUriFor(project.getPath() + "/" + atom.config.get("atom-rspec.spec_directory"))
+    @openUriFor(project.getPath() + "/" + atom.config.get("rspec.spec_directory"))

@@ -74,15 +74,15 @@ class RSpecView extends ScrollView
 
     spawn = ChildProcess.spawn
 
-    specCommand = atom.config.get("atom-rspec.command")
+    specCommand = atom.config.get("rspec.command")
     options = " --tty"
-    options += " --color" if atom.config.get("atom-rspec.force_colored_results")
+    options += " --color" if atom.config.get("rspec.force_colored_results")
     command = "#{specCommand} #{options} #{@filePath}"
     command = "#{command}:#{lineNumber}" if lineNumber
 
     console.log "[RSpec] running: #{command}"
 
-    terminal = spawn("bash", ["-l"])
+    terminal = spawn(atom.config.get("rspec.shell"), ["-l"])
 
     terminal.on 'close', @onClose
 
