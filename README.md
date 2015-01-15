@@ -6,7 +6,8 @@ HotKeys:
 
 - __Ctrl+Alt+T__ - executes all specs the current file
 - __Ctrl+Alt+X__ - executes only the spec on the line the cursor's at
-- __Ctrl+Alt+E__ - re-executes the last executed spec
+- __Ctrl+Alt+E__ - re-executes the last executed spec- 
+- __Ctrl+Alt+R__ - runs all specs
 
 ![Screenshot](http://cl.ly/image/2G2B3M2g3l3k/stats_collector_spec.rb%20-%20-Users-fcoury-Projects-crm_bliss.png)
 
