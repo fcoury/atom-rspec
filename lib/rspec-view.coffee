@@ -74,9 +74,10 @@ class RSpecView extends ScrollView
 
     spawn = ChildProcess.spawn
 
-    specCommand = atom.config.get("atom-rspec.command")
+    # Atom saves config based on package name, so we need to use rspec here.
+    specCommand = atom.config.get("rspec.command")
     options = " --tty"
-    options += " --color" if atom.config.get("atom-rspec.force_colored_results")
+    options += " --color" if atom.config.get("rspec.force_colored_results")
     command = "#{specCommand} #{options} #{@filePath}"
     command = "#{command}:#{lineNumber}" if lineNumber
 
