@@ -24,7 +24,7 @@ class RSpecView extends ScrollView
     console.log "File path:", filePath
     @filePath = filePath
 
-    @output = @find(".rspec-output")
+    @output  = @find(".rspec-output")
     @spinner = @find(".rspec-spinner")
     @output.on("click", @terminalClicked)
 
@@ -68,6 +68,7 @@ class RSpecView extends ScrollView
         editor.setCursorBufferPosition([line-1, 0])
 
   run: (lineNumber) ->
+    atom.workspace.saveAll() if atom.config.get("rspec.save_before_run")
     @spinner.show()
     @output.empty()
     projectPath = atom.project.getRootDirectory().getPath()

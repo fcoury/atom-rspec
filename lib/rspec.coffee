@@ -7,6 +7,7 @@ module.exports =
     command: "rspec",
     spec_directory: "spec",
     force_colored_results: true,
+    save_before_run: false
 
   activate: (state) ->
     if state?
@@ -16,7 +17,8 @@ module.exports =
     atom.config.setDefaults "atom-rspec",
       command:               @configDefaults.command,
       spec_directory:        @configDefaults.spec_directory,
-      force_colored_results: @configDefaults.force_colored_results
+      save_before_run:       @configDefaults.save_before_run,
+      force_colored_results: @configDefaults.force_colored_results,
 
     atom.commands.add 'atom-workspace',
       'rspec:run': =>
