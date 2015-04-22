@@ -13,7 +13,9 @@
   "repository": "https://github.com/fcoury/atom-rspec",
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">0.150.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.3"
+  }
 }

@@ -1,4 +1,4 @@
-{$, $$$, EditorView, ScrollView} = require 'atom'
+{$, $$$, EditorView, ScrollView} = require 'atom-space-pen-views'
 
 class TextFormatter
   constructor: (@text)->

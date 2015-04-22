@@ -33,7 +33,7 @@ module.exports =
       'rspec:run-all': =>
         @runAll()
 
-    atom.workspace.registerOpener (uriToOpen) ->
+    atom.workspace.addOpener (uriToOpen) ->
       {protocol, pathname} = url.parse(uriToOpen)
       return unless protocol is 'rspec-output:'
       new RSpecView(pathname)
@@ -61,11 +61,11 @@ module.exports =
 
   runForLine: ->
     console.log "Starting runForLine..."
-    editor = atom.workspace.getActiveEditor()
+    editor = atom.workspace.getActiveTextEditor()
     console.log "Editor", editor
     return unless editor?
 
-    cursor = editor.getCursor()
+    cursor = editor.getLastCursor()
     console.log "Cursor", cursor
     line = cursor.getBufferRow() + 1
     console.log "Line", line
@@ -78,7 +78,7 @@ module.exports =
 
   run: ->
     console.log "RUN"
-    editor = atom.workspace.getActiveEditor()
+    editor = atom.workspace.getActiveTextEditor()
     return unless editor?
 
     @openUriFor(editor.getPath())

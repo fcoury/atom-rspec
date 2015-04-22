@@ -1,6 +1,6 @@
-{$, $$$, EditorView, ScrollView} = require 'atom'
-ChildProcess = require 'child_process'
+{$, $$$, EditorView, ScrollView} = require 'atom-space-pen-views'
 path = require 'path'
+ChildProcess  = require 'child_process'
 TextFormatter = require './text-formatter'
 
 module.exports =
@@ -37,13 +37,10 @@ class RSpecView extends ScrollView
     return if text == ''
     atom.clipboard.write(text)
 
-  destroy: ->
-    @unsubscribe()
-
   getTitle: ->
     "RSpec - #{path.basename(@getPath())}"
 
-  getUri: ->
+  getURI: ->
     "rspec-output://#{@getPath()}"
 
   getPath: ->
@@ -71,7 +68,7 @@ class RSpecView extends ScrollView
     atom.workspace.saveAll() if atom.config.get("rspec.save_before_run")
     @spinner.show()
     @output.empty()
-    projectPath = atom.project.getRootDirectory().getPath()
+    projectPath = atom.project.getPaths()[0]
 
     spawn = ChildProcess.spawn
 
