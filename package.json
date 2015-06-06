@@ -4,12 +4,14 @@
   "version": "0.3.0",
   "private": true,
   "description": "Atom RSpec runner package",
-  "activationEvents": [
-    "rspec:run",
-    "rspec:run-for-line",
-    "rspec:run-last",
-    "rspec:run-all"
-  ],
+  "activationCommands": {
+    "atom-workspace": [
+      "rspec:run",
+      "rspec:run-for-line",
+      "rspec:run-last",
+      "rspec:run-all"
+    ]
+  },
   "repository": "https://github.com/fcoury/atom-rspec",
   "license": "MIT",
   "engines": {
