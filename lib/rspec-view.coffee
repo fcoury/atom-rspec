@@ -58,7 +58,7 @@ class RSpecView extends ScrollView
       line = $(e.target).data('line')
       file = $(e.target).data('file')
       console.log(file)
-      file = "#{atom.project.getPath()}/#{file}"
+      file = "#{atom.project.getPaths()}/#{file}"
 
       promise = atom.workspace.open(file, { searchAllPanes: true, initialLine: line })
       promise.done (editor) ->
