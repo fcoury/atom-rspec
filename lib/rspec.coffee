@@ -87,4 +87,5 @@ module.exports =
     project = atom.project
     return unless project?
 
-    @openUriFor(project.getPath() + "/" + atom.config.get("atom-rspec.spec_directory"))
+    @openUriFor(project.rootDirectories[0].path +
+    "/" + atom.config.get("atom-rspec.spec_directory"), @lastLine)
