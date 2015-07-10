@@ -7,8 +7,8 @@
 
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
-'atom-text-editor':
-  'ctrl-alt-t': 'rspec:run'
+'atom-text-editor[data-grammar~=ruby], atom-text-editor[data-grammar~=rspec]':
+  'ctrl-alt-p': 'rspec:run'
   'ctrl-alt-x': 'rspec:run-for-line'
   'ctrl-alt-e': 'rspec:run-last'
   'ctrl-alt-r': 'rspec:run-all'
