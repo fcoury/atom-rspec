@@ -1,26 +1,33 @@
+RSpecView = require './rspec-view'
+{CompositeDisposable} = require 'atom'
 url = require 'url'
 
-RSpecView = require './rspec-view'
-
 module.exports =
-  configDefaults:
-    command: "rspec",
-    spec_directory: "spec",
-    force_colored_results: true,
-    save_before_run: false
+  config:
+    command:
+      type: 'string'
+      default: 'rspec'
+    spec_directory:
+      type: 'string'
+      default: 'spec'
+    save_before_run:
+      type: 'boolean'
+      default: false
+    force_colored_results:
+      type: 'boolean'
+      default: true
+
+  rspecView: null
+  subscriptions: null
 
   activate: (state) ->
     if state?
       @lastFile = state.lastFile
       @lastLine = state.lastLine
 
-    atom.config.setDefaults "atom-rspec",
-      command:               @configDefaults.command,
-      spec_directory:        @configDefaults.spec_directory,
-      save_before_run:       @configDefaults.save_before_run,
-      force_colored_results: @configDefaults.force_colored_results,
+    @subscriptions = new CompositeDisposable
 
-    atom.commands.add 'atom-workspace',
+    @subscriptions.add atom.commands.add 'atom-workspace',
       'rspec:run': =>
         @run()
 
@@ -38,10 +45,9 @@ module.exports =
       return unless protocol is 'rspec-output:'
       new RSpecView(pathname)
 
-  rspecView: null
-
   deactivate: ->
     @rspecView.destroy()
+    @subscriptions.dispose()
 
   serialize: ->
     rspecViewState: @rspecView.serialize()
@@ -88,4 +94,4 @@ module.exports =
     return unless project?
 
     @openUriFor(project.getPaths()[0] +
-    "/" + atom.config.get("atom-rspec.spec_directory"), @lastLine)
+    "/" + atom.config.get("rspec.spec_directory"), @lastLine)

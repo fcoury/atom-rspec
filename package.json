@@ -1,7 +1,7 @@
 {
   "name": "rspec",
   "main": "./lib/rspec",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "private": true,
   "description": "Atom RSpec runner package",
   "activationCommands": {
@@ -15,7 +15,7 @@
   "repository": "https://github.com/fcoury/atom-rspec",
   "license": "MIT",
   "engines": {
-    "atom": ">0.150.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.3"
