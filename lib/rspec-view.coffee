@@ -3,7 +3,6 @@ path = require 'path'
 ChildProcess  = require 'child_process'
 TextFormatter = require './text-formatter'
 
-module.exports =
 class RSpecView extends ScrollView
   atom.deserializers.add(this)
 
@@ -107,3 +106,5 @@ class RSpecView extends ScrollView
 
   onClose: (code) =>
     console.log "[RSpec] exit with code: #{code}"
+
+module.exports = RSpecView
