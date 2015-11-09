@@ -60,7 +60,7 @@ class RSpecView extends ScrollView
       file = "#{atom.project.getPaths()[0]}/#{file}"
 
       promise = atom.workspace.open(file, { searchAllPanes: true, initialLine: line })
-      promise.done (editor) ->
+      promise.then (editor) ->
         editor.setCursorBufferPosition([line-1, 0])
 
   run: (lineNumber) ->
