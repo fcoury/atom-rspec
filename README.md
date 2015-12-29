@@ -1,5 +1,7 @@
 # Atom RSpec Runner Package
 
+[![ghit.me](https://ghit.me/badge.svg?repo=fcoury/atom-rspec)](https://ghit.me/repo/fcoury/atom-rspec)
+
 Add ability to run RSpec and see the output without leaving Atom.
 
 HotKeys:
