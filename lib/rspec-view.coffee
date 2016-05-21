@@ -75,7 +75,11 @@ class RSpecView extends ScrollView
     specCommand = atom.config.get("rspec.command")
     options = " --tty"
     options += " --color" if atom.config.get("rspec.force_colored_results")
-    command = "#{specCommand} #{options} #{@filePath}"
+    filePath = this.filePath
+    atom.project.getPaths().forEach((item, index) ->
+      filePath = filePath.replace(item + '/', "")
+      )
+    command = "#{specCommand} #{options} #{filePath}"
     command = "#{command}:#{lineNumber}" if lineNumber
 
     console.log "[RSpec] running: #{command}"
