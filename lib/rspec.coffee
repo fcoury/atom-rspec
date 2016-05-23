@@ -19,6 +19,7 @@ module.exports =
     window_split:
       type: 'string'
       default: 'right'
+      enum: ['left', 'right', 'up', 'down']
 
   rspecView: null
   subscriptions: null
