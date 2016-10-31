@@ -50,7 +50,8 @@ module.exports =
     @subscriptions.dispose()
 
   serialize: ->
-    rspecViewState: @rspecView.serialize()
+    if @rspecView
+      rspecViewState: @rspecView.serialize()
     lastFile: @lastFile
     lastLine: @lastLine
 
