@@ -16,7 +16,9 @@ class RSpecView extends ScrollView
 
   initialize: ->
     super
-    @on 'core:copy': => @copySelectedText()
+    rspec = this
+    atom.commands.add 'atom-workspace','core:copy': (event) ->
+      rspec.copySelectedText()
 
   constructor: (filePath) ->
     super
