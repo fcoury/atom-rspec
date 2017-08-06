@@ -16,6 +16,10 @@ module.exports =
     force_colored_results:
       type: 'boolean'
       default: true
+    window_split:
+      type: 'string'
+      default: 'right'
+      enum: ['left', 'right', 'up', 'down']
 
   rspecView: null
   subscriptions: null
@@ -61,7 +65,8 @@ module.exports =
 
     previousActivePane = atom.workspace.getActivePane()
     uri = "rspec-output://#{file}"
-    atom.workspace.open(uri, split: 'right', activatePane: false, searchAllPanes: true).done (rspecView) ->
+    window_split = atom.config.get("rspec.window_split")
+    atom.workspace.open(uri, split: window_split, activatePane: false, searchAllPanes: true).done (rspecView) ->
       if rspecView instanceof RSpecView
         rspecView.run(lineNumber)
         previousActivePane.activate()
