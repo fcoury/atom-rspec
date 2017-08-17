@@ -4,7 +4,11 @@
 
 Add ability to run RSpec and see the output without leaving Atom.
 
-HotKeys:
+##Installation
+
+`apm install rspec`
+
+##HotKeys:
 
 - __Ctrl+Alt+T__ - executes all specs the current file
 - __Ctrl+Alt+X__ - executes only the spec on the line the cursor's at
