@@ -16,6 +16,17 @@ module.exports =
     force_colored_results:
       type: 'boolean'
       default: true
+    split:
+      type: 'string'
+      default: 'right'
+      description: 'The direction in which to split the pane when launching rspec'
+      enum: [
+        {value: 'right', description: 'Right'}
+        {value: 'left', description: 'Left'}
+        {value: 'up', description: 'Up'}
+        {value: 'down', description: 'Down'}
+      ]
+
 
   rspecView: null
   subscriptions: null
@@ -61,7 +72,7 @@ module.exports =
 
     previousActivePane = atom.workspace.getActivePane()
     uri = "rspec-output://#{file}"
-    atom.workspace.open(uri, split: 'right', activatePane: false, searchAllPanes: true).then (rspecView) ->
+    atom.workspace.open(uri, split: atom.config.get("rspec.split"), activatePane: false, searchAllPanes: true).then (rspecView) ->
       if rspecView instanceof RSpecView
         rspecView.run(lineNumber)
         previousActivePane.activate()
