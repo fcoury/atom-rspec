@@ -28,11 +28,12 @@ class TextFormatter
     # to avoid unclosed tags we always use smaller number of color starts / ends
     replaceCount = colorStartCount
     replaceCount = colorEndCount if colorEndCount < colorStartCount
-
     for i in [0..replaceCount]
       text = text.replace /\[(3[0-7])m/, (match, colorCode) =>
         "<p class=\"rspec-color tty-#{colorCode}\">"
       text = text.replace /\[0m/g, '</p>'
+    text = text.replace /\x1B/g, ''
+
 
     new TextFormatter(text)
 
