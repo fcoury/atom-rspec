@@ -83,7 +83,6 @@ module.exports =
     console.log "Editor", editor
     return unless editor?
 
-    editor.save() if editor.getPath()
     cursor = editor.getLastCursor()
     console.log "Cursor", cursor
     line = cursor.getBufferRow() + 1
@@ -99,7 +98,6 @@ module.exports =
     console.log "RUN"
     editor = atom.workspace.getActiveTextEditor()
     return unless editor?
-    editor.save() if editor.getPath()
 
     @openUriFor(editor.getPath())
 
