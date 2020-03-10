@@ -71,16 +71,28 @@ class RSpecView extends ScrollView
     @output.empty()
     projectPath = atom.project.getPaths()[0]
 
+    # Mono repos
+    filePath = @filePath
+    splittedPath = @filePath.split("#{projectPath}/")
+    isMonoRepo = /.+\/spec\//.test(splittedPath[1])
+
+    if isMonoRepo
+      filePath = @filePath.match(/spec\/.+/)[0]
+      projectPath = @filePath.replace(filePath, '')
+
     spawn = ChildProcess.spawn
 
     # Atom saves config based on package name, so we need to use rspec here.
     specCommand = atom.config.get("rspec.command")
     options = " --tty"
     options += " --color" if atom.config.get("rspec.force_colored_results")
-    command = "#{specCommand} #{options} #{@filePath}"
+    command = "#{specCommand} #{options} #{filePath}"
     command = "#{command}:#{lineNumber}" if lineNumber
 
     console.log "[RSpec] running: #{command}"
+    console.log "[RSpec] Monolithic repo: #{isMonoRepo}"
+    console.log "[RSpec] SubDir: #{projectPath}"
+    console.log "[RSpec] File: #{filePath}"
 
     terminal = spawn("bash", ["-l"])
 
