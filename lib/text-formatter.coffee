@@ -32,7 +32,7 @@ class TextFormatter
       text = text.replace /\[(3[0-7])m/, (match, colorCode) =>
         "<p class=\"rspec-color tty-#{colorCode}\">"
       # replace also 256 color codes
-      text = text.replace /\[[01];(3[0-7])(;[0-9])?m/, (match, colorCode, other) =>
+      text = text.replace /\[[01];(3[0-7])(;[0-9][0-9])?m/, (match, colorCode, other) =>
         "<p class=\"rspec-color tty-#{colorCode}\">"
       text = text.replace /\[0m/g, '</p>'
     text = text.replace /\x1B/g, ''
