@@ -21,6 +21,7 @@ module.exports =
       default: 'right'
       description: 'The direction in which to split the pane when launching rspec'
       enum: [
+        {value: 'none', description: 'None'}
         {value: 'right', description: 'Right'}
         {value: 'left', description: 'Left'}
         {value: 'up', description: 'Up'}
